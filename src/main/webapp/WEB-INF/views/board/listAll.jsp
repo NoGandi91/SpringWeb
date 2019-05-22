@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page session="false" %>
 <%@include file="../include/header.jsp"%>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -22,7 +23,14 @@
          folder instead of downloading all of them to reduce the load. -->
 <link href="/resources/dist/css/skins/_all-skins.min.css"
 	rel="stylesheet" type="text/css" />
-<title>Insert title here</title>
+<script>
+	var result = '${msg}';
+	
+	if(result == 'success'){
+		alert("처리가 완료되었습니다.");
+	}
+</script>
+
 <section class="content">
 	<div class="row">
 		<!-- left colum -->
@@ -30,38 +38,34 @@
 			<!-- general form elements -->
 			<div class="box">
 				<div class="box-header with-border">
-					<h3 class="box-title">REGISTER BOARD</h3>
+					<h3 class="box-title">LIST ALL PAGE</h3>
 				</div>
-				<form role="form" method="post">
-
-					<div class="box-body">
-						<div class="form-group">
-							<label for="exampleInputEmail1">Title</label> <input type="text"
-								name="title" class="form-control" placeholder="Enter Title">
-						</div>
-
-						<div class="form-group">
-							<label for="exampleInputPassword1">Content</label>
-							<textarea class="form-control" name="content" rows="3"
-								placeholder="Entet ..."></textarea>
-						</div>
-
-						<div class="form-group">
-							<label for="exampleInputEmail1">Writer</label> <input type="text"
-								name="writer" class="form-control" placeholder="Enter Writer">
-						</div>
-					</div>
-
-					<div class="box-footer">
-						<button type="submit" class="btn btn-primary">Submit</button>
-					</div>
-				</form>
+					<table class="table table-bordered">
+						<tr>
+							<th style="width: 10px">BNO</th>
+							<th>TITLE</th>
+							<th>WRITER</th>
+							<th>REGDATE</th>
+							<th style="width: 40px">VIEWCNT</th>
+						<tr>
+					<c:forEach items="${list }" var="boardVO"> 
+						<tr>
+							<td>${boardVO.bno }</td>
+							<td><a href='/board/read?bno=${boardVO.bno }'>${boardVO.title }</a></td>
+							<td>${boardVO.writer }</td>				
+							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${boardVO.regdate}" /></td>
+							<td><span class="badge be-red">${boardVO.viewCnt }</span></td>
+						</tr>
+					</c:forEach>
+						
+					</table>				
 			</div>
 		</div>
 		<!-- /.col(left) -->
 	</div>
 	<!-- /.row -->
 </section>
+<!-- /.content -->
 
 </div>
 <%@include file="../include/footer.jsp"%>
