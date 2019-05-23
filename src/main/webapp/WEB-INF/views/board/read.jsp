@@ -30,12 +30,14 @@ $(document).ready(function(){
 	
 	console.log(formObj);
 	
+	//수정
 	$(".btn-warning").on("click", function(){
 		formObj.attr("action","/board/modify");
 		formObj.attr("method","get");
 		formObj.submit();
 	});
 	
+	//삭제
 	$(".btn-danger").on("click", function(){
 		formObj.attr("action","/board/remove");
 		formObj.submit();
@@ -57,13 +59,13 @@ $(document).ready(function(){
 					<h3 class="box-title">LIST ALL PAGE</h3>
 				</div>
 					<form role="form" method="post">
-						<input type='hidden' name='bno' value="${boardVO.title }" readonly="readonly">
+						<input type='hidden' name='bno' value="${boardVO.bno }"> 
 					</form>
 					
 					<div class="box-body">
 						<div class="form-group">
 							<label for="exampleInputEmail1">Title</label>
-							<input type="text" name="title" class="form-control" value="${boardVO.writer }" readonly="readonly">
+							<input type="text" name="title" class="form-control" value="${boardVO.title }" readonly="readonly">
 						</div>
 						<div class="form-group">
 							<label for="exampleInputPassword1">Content</label>
